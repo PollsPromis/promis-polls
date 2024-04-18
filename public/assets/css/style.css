@@ -358,7 +358,6 @@ label, .filter__title {
 }
 .row__file-item {
   padding: 12px;
-  width: -moz-fit-content;
   width: fit-content;
   border: 1px solid rgba(154, 154, 154, 0.2509803922);
   border-radius: 10px;
@@ -383,7 +382,6 @@ label, .filter__title {
 }
 
 .input-date {
-  width: -moz-fit-content;
   width: fit-content;
   font-size: 15px;
 }
