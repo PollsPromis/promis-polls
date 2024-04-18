@@ -4,9 +4,20 @@ docker run --name mysql -e MYSQL_ROOT_PASSWORD=admin -p 3306:3306 -d mysql
 ```
 
 # Запуск миграции
-В консоли с проектом запускаем команду
+1. Подключаем нашу базу данных в PhpStorm
+```
+login = root
+password = admin
+```
+2. В консоли с проектом запускаем команду
 ```bash
 php artisan migrate
+```
+
+# Подготовка проекта
+```bash
+php artisan key:generate
+composer dump-autoload
 ```
 
 # Запуск сервера
