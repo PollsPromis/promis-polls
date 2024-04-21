@@ -1,6 +1,6 @@
 #  Поднятие базы данных в Docker
 ```bash
-docker run --name mysql -e MYSQL_ROOT_PASSWORD=admin -p 3306:3306 -d mysql
+docker run --name postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres
 ```
 
 # Запуск миграции
@@ -11,8 +11,8 @@ composer install
 ```
 2. Подключаем нашу базу данных в PhpStorm
 ```
-login = root
-password = admin
+login = postgres
+password = postgres
 ```
 3. В консоли с проектом запускаем команду
 ```bash

@@ -1,12 +1,15 @@
 <?php
 
-    use Illuminate\Foundation\Application;
     use Illuminate\Support\Facades\Route;
     use Inertia\Inertia;
+    use App\Http\Controllers\SuggestionController;
 
     Route::get('/', function () {
         return view('layouts.index');
     })->name('app');
+
+    Route::post('/submit-suggestion', [SuggestionController::class, 'store'])->name('submit.suggestion');
+
 
     Route::middleware([
         'auth:sanctum',
@@ -17,3 +20,4 @@
             return Inertia::render('Dashboard');
         })->name('dashboard');
     });
+

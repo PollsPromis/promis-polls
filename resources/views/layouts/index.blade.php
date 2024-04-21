@@ -10,7 +10,8 @@
                 <div class="content__header-block header-block">
                     <h1 class="header-block__title">Предложение по улучшению</h1>
                 </div>
-                <form class="content__main-form main-form" action="" enctype="multipart/form-data">
+                <form class="content__main-form main-form" action="{{ route('submit.suggestion') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
                     <div class="main-form__row row">
                         <div class="row__title">
                             <h3 class="row__text required">Автор (ФИО)</h3>
@@ -88,7 +89,6 @@
                         </div>
                         <input type="date" class="row__input input-date" name="dateInput">
                     </div>
-
                     <div class="main-form__row row">
                         <button class="row__button-submit _button" type="submit">Отправить</button>
                     </div>
