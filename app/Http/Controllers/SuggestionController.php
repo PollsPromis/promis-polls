@@ -5,9 +5,10 @@
     use App\Models\Suggestion;
     use App\Models\SuggestionImageBefore;
     use App\Models\SuggestionImageAfter;
+    use App\Models\Status;
     use Illuminate\Support\Facades\DB;
     use Illuminate\Support\Facades\Storage;
-    use \Illuminate\Http\RedirectResponse;
+    use Illuminate\Http\RedirectResponse;
     class SuggestionController extends Controller
     {
         public function store(Request $request): RedirectResponse
@@ -21,7 +22,7 @@
                     'date' => 'required|date',
                     'collaborator' => 'nullable',
                     'department' => 'required|exists:departments,id',
-                    'email' => 'required|email',
+                    'email' => 'nullable|email',
                     'phone' => 'nullable',
                     'type' => 'nullable',
                     'description' => 'required',
@@ -73,5 +74,27 @@
                 dd($e->getMessage());
                 //return redirect()->route('app');
             }
+        }
+
+        public function index(Request $request)
+        {
+            // Получение статуса из запроса, если он есть
+            $statusId = $request->get('status');
+
+            // Построение запроса с учетом фильтра, если он применяется
+            $query = Suggestion::with('department', 'status');
+
+            if ($statusId) {
+                $query->where('status_id', $statusId);
+            }
+
+            $suggestions = $query->paginate(10); // Пример пагинации
+            $statuses = Status::all(); // Получение всех статусов для фильтра
+
+
+            return view('layouts.suggestions', compact('suggestions'), [
+                'suggestions' => $suggestions,
+                'statuses' => $statuses,
+            ]);
         }
     }

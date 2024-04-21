@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('app')
 
 @section('title', 'Личный кабинет')
 
@@ -15,197 +15,30 @@
                     <table class="content__main-table main-table">
                         <thead class="main-table__thead">
                         <tr>
-                            <th>№</th>
-                            <th>Дата поступления</th>
-                            <th>Ф.И.О. автора</th>
-                            <th>Почта</th>
-                            <th>Телефон</th>
+                            <th>Номер предложения</th>
+                            <th>Автор</th>
+                            <th>Соавтор</th>
                             <th>Подразделение</th>
-                            <th>Статус предложения</th>
+                            <th>Статус</th>
+                            <th>Дата</th>
                         </tr>
                         </thead>
                         <tbody class="main-table__tbody">
-                        <tr>
-                            <th>1</th>
-                            <td>Column two</td>
-                            <td>Column three</td>
-                            <td>Column four</td>
-                            <td>Column five</td>
-                            <td>Column six</td>
-                            <td>Column seven</td>
-                        </tr>
-                        <tr>
-                            <th>2</th>
-                            <td>Column two</td>
-                            <td>Column three</td>
-                            <td>Column four</td>
-                            <td>Column five</td>
-                            <td>Column six</td>
-                            <td>Column seven</td>
-                        </tr>
-                        <tr>
-                            <th>3</th>
-                            <td>Column two</td>
-                            <td>Column three</td>
-                            <td>Column four</td>
-                            <td>Column five</td>
-                            <td>Column six</td>
-                            <td>Column seven</td>
-                        </tr>
-                        <tr>
-                            <th>4</th>
-                            <td>Column two</td>
-                            <td>Column three</td>
-                            <td>Column four</td>
-                            <td>Column five</td>
-                            <td>Column six</td>
-                            <td>Column seven</td>
-                        </tr>
-                        <tr>
-                            <th>5</th>
-                            <td>Column two</td>
-                            <td>Column three</td>
-                            <td>Column four</td>
-                            <td>Column five</td>
-                            <td>Column six</td>
-                            <td>Column seven</td>
-                        </tr>
-                        <tr>
-                            <th>6</th>
-                            <td>Column two</td>
-                            <td>Column three</td>
-                            <td>Column four</td>
-                            <td>Column five</td>
-                            <td>Column six</td>
-                            <td>Column seven</td>
-                        </tr>
-                        <tr>
-                            <th>7</th>
-                            <td>Column two</td>
-                            <td>Column three</td>
-                            <td>Column four</td>
-                            <td>Column five</td>
-                            <td>Column six</td>
-                            <td>Column seven</td>
-                        </tr>
-                        <tr>
-                            <th>8</th>
-                            <td>Column two</td>
-                            <td>Column three</td>
-                            <td>Column four</td>
-                            <td>Column five</td>
-                            <td>Column six</td>
-                            <td>Column seven</td>
-                        </tr>
-                        <tr>
-                            <th>9</th>
-                            <td>Column two</td>
-                            <td>Column three</td>
-                            <td>Column four</td>
-                            <td>Column five</td>
-                            <td>Column six</td>
-                            <td>Column seven</td>
-                        </tr>
-                        <tr>
-                            <th>10</th>
-                            <td>Column two</td>
-                            <td>Column three</td>
-                            <td>Column four</td>
-                            <td>Column five</td>
-                            <td>Column six</td>
-                            <td>Column seven</td>
-                        </tr>
-                        <tr>
-                            <th>0</th>
-                            <td>Column two</td>
-                            <td>Column three</td>
-                            <td>Column four</td>
-                            <td>Column five</td>
-                            <td>Column six</td>
-                            <td>Column seven</td>
-                        </tr>
-                        <tr>
-                            <th>0</th>
-                            <td>Column two</td>
-                            <td>Column three</td>
-                            <td>Column four</td>
-                            <td>Column five</td>
-                            <td>Column six</td>
-                            <td>Column seven</td>
-                        </tr>
-                        <tr>
-                            <th>0</th>
-                            <td>Column two</td>
-                            <td>Column three</td>
-                            <td>Column four</td>
-                            <td>Column five</td>
-                            <td>Column six</td>
-                            <td>Column seven</td>
-                        </tr>
-                        <tr>
-                            <th>0</th>
-                            <td>Column two</td>
-                            <td>Column three</td>
-                            <td>Column four</td>
-                            <td>Column five</td>
-                            <td>Column six</td>
-                            <td>Column seven</td>
-                        </tr>
-                        <tr>
-                            <th>0</th>
-                            <td>Column two</td>
-                            <td>Column three</td>
-                            <td>Column four</td>
-                            <td>Column five</td>
-                            <td>Column six</td>
-                            <td>Column seven</td>
-                        </tr>
-                        <tr>
-                            <th>0</th>
-                            <td>Column two</td>
-                            <td>Column three</td>
-                            <td>Column four</td>
-                            <td>Column five</td>
-                            <td>Column six</td>
-                            <td>Column seven</td>
-                        </tr>
-                        <tr>
-                            <th>0</th>
-                            <td>Column two</td>
-                            <td>Column three</td>
-                            <td>Column four</td>
-                            <td>Column five</td>
-                            <td>Column six</td>
-                            <td>Column seven</td>
-                        </tr>
-                        <tr>
-                            <th>0</th>
-                            <td>Column two</td>
-                            <td>Column three</td>
-                            <td>Column four</td>
-                            <td>Column five</td>
-                            <td>Column six</td>
-                            <td>Column seven</td>
+                        @forelse($suggestions as $suggestion)
+                            <tr>
+                                <td>{{ $suggestion->id }}</td>
+                                <td>{{ $suggestion->author }}</td>
+                                <td>{{ $suggestion->collaborator }}</td>
+                                <td>{{ $suggestion->department->title }}</td>
+                                <td>{{ $suggestion->status->title }}</td>
+                                <td>{{ $suggestion->created_at->format('d-m-Y') }}</td>
 
-                        </tr>
-                        <tr>
-                            <th>0</th>
-                            <td>Column two</td>
-                            <td>Column three</td>
-                            <td>Column four</td>
-                            <td>Column five</td>
-                            <td>Column six</td>
-                            <td>Column seven</td>
-                        </tr>
-                        <tr>
-                            <th>0</th>
-                            <td>Column two</td>
-                            <td>Column three</td>
-                            <td>Column four</td>
-                            <td>Column five</td>
-                            <td>Column six</td>
-                            <td>Column seven</td>
-                        </tr>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6">Предложений не найдено.</td>
+                            </tr>
+                        @endforelse
                         </tbody>
                     </table>
                 </div>

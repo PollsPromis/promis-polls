@@ -8,7 +8,9 @@
         return view('layouts.index');
     })->name('app');
 
-    Route::post('/submit-suggestion', [SuggestionController::class, 'store'])->name('submit.suggestion');
+    Route::get('/suggestions-show', [SuggestionController::class, 'index'])->name('suggestions.show');
+
+    Route::post('/suggestion-submit', [SuggestionController::class, 'store'])->name('suggestion.submit');
 
 
     Route::middleware([

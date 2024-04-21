@@ -3,14 +3,13 @@
 @section('title', 'Предложение по улучшению')
 
 @section('content')
-
     <main class="main">
         <div class="main__content content">
             <div class="content__container _container">
                 <div class="content__header-block header-block">
                     <h1 class="header-block__title">Предложение по улучшению</h1>
                 </div>
-                <form method="post" class="content__main-form main-form" action="{{ route('submit.suggestion') }}" enctype="multipart/form-data">
+                <form method="post" class="content__main-form main-form" action="{{ route('suggestion.submit') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="main-form__row row">
                         <div class="row__title">

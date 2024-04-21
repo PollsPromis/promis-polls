@@ -12,6 +12,25 @@
             'manager_comment', 'does_solve_a_problem', 'realizer', 'status_id'
         ];
 
-        // Здесь можно добавить связи с другими моделями, если это необходимо
+        public function department()
+        {
+            return $this->belongsTo('App\Models\Department', 'depart_id');
+        }
+
+        public function status()
+        {
+            return $this->belongsTo('App\Models\Status', 'status_id');
+        }
+
+
+        public function type()
+        {
+            return $this->belongsTo('App\Models\Type', 'type_id');
+        }
+
+        public function economicIndicator()
+        {
+            return $this->belongsTo('App\Models\EconomicIndicator', 'economic_indic_id');
+        }
     }
 
