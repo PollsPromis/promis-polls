@@ -7,10 +7,10 @@
     use App\Models\SuggestionImageAfter;
     use Illuminate\Support\Facades\DB;
     use Illuminate\Support\Facades\Storage;
-
+    use \Illuminate\Http\RedirectResponse;
     class SuggestionController extends Controller
     {
-        public function store(Request $request)
+        public function store(Request $request): RedirectResponse
         {
             // Старт транзакции
             DB::beginTransaction();
@@ -18,9 +18,12 @@
                 // Валидация данных запроса
                 $validated = $request->validate([
                     'author' => 'required',
+                    'date' => 'required|date',
                     'collaborator' => 'nullable',
-                    'department' => 'required|exists:departments,depart_id',
-                    'type' => 'required|exists:types,type_id',
+                    'department' => 'required|exists:departments,id',
+                    'email' => 'required|email',
+                    'phone' => 'nullable',
+                    'type' => 'nullable',
                     'description' => 'required',
                     'photo_problem' => 'nullable|image',
                     'photo_solution' => 'nullable|image',
@@ -29,10 +32,13 @@
                 // Создание новой записи предложения
                 $suggestion = new Suggestion([
                     'author' => $validated['author'],
-                    'date' => 'required|date|before:tomorrow',
+                    'date' => $validated['date'],
                     'collaborator' => $validated['collaborator'] ?? '',
+                    'email' => $validated['email'],
                     'depart_id' => $validated['department'],
-                    'type_id' => $validated['type'],
+                    'phone_number' => $validated['phone'],
+                    'status_id' => 1,
+                    'type_id' => 1,
                     'suggestion_content' => $validated['description'],
                 ]);
                 $suggestion->save();
@@ -60,10 +66,12 @@
                 DB::commit();
 
                 // Перенаправление с сообщением об успехе
-                return redirect()->back()->with('success', 'Предложение успешно отправлено.');
-            } catch (\Exception $e) {
+                return redirect()->route('app');
+            }
+            catch (\Exception $e) {
                 DB::rollback();
-                return redirect()->back()->withErrors('Произошла ошибка при сохранении данных.');
+                dd($e->getMessage());
+                //return redirect()->route('app');
             }
         }
     }

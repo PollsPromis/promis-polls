@@ -14,6 +14,13 @@ composer install
 login = postgres
 password = postgres
 ```
+
+2.1.
+Заходим в файл php.ini и вставляем туда такие настройки
+```
+extension=pdo_pgsql
+extension=pgsql
+```
 3. В консоли с проектом запускаем команду
 ```bash
 php artisan migrate
