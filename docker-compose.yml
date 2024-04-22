@@ -1,36 +1,42 @@
 version: '3.8'
 
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: laravel_app
-    restart: unless-stopped
-    ports:
-      - "8000:80"
-    environment:
-      - APP_ENV=local
-      - APP_DEBUG=true
-      - DB_HOST=db
-      - DB_DATABASE=mysql
-      - DB_USERNAME=root
-      - DB_PASSWORD=admin
-    volumes:
-      - .:/var/www/html
-      - ./public:/var/www/html/public
-    depends_on:
-      - db
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: laravel_app
+        restart: unless-stopped
+        ports:
+            - "8000:8000"
+        environment:
+            - APP_ENV=local
+            - APP_DEBUG=true
+            - APP_KEY=base64:aJmr93pbabhEvvJV4H6mt5nxE4VZb1NX+ciZw+jdyko=
+            - DB_CONNECTION=pgsql
+            - DB_HOST=db
+            - DB_PORT=5432
+            - DB_DATABASE=postgres
+            - DB_USERNAME=postgres
+            - DB_PASSWORD=postgres
+        volumes:
+            - .:/var/www/html
+            - ./public:/var/www/html/public
+        depends_on:
+            - db
 
-  db:
-    image: mysql:8.0
-    container_name: laravel_db
-    restart: unless-stopped
-    environment:
-      MYSQL_DATABASE: mysql
-      MYSQL_ROOT_PASSWORD: admin
-    volumes:
-      - dbdata:/var/lib/mysql
+    db:
+        image: postgres:latest
+        container_name: laravel_db
+        restart: unless-stopped
+        environment:
+            - POSTGRES_DB=postgres
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+        volumes:
+            - dbdata:/var/lib/postgresql/data
+        ports:
+            - "5432:5432"
 
 volumes:
-  dbdata:
+    dbdata:

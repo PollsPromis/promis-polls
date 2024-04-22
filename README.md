@@ -25,6 +25,10 @@ extension=pgsql
 ```bash
 php artisan migrate
 ```
+3.1. Добавить seed
+```bash
+php artisan db:seed
+```
 
 # Подготовка проекта
 ```bash
