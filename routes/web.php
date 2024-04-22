@@ -3,12 +3,14 @@
     use Illuminate\Support\Facades\Route;
     use Inertia\Inertia;
     use App\Http\Controllers\SuggestionController;
+    use App\Http\Controllers\AuthController;
 
     Route::get('/', function () {
         return view('layouts.index');
     })->name('app');
 
     Route::get('/suggestions-show', [SuggestionController::class, 'index'])->name('suggestions.show');
+    Route::get('/auth-show', [AuthController::class, 'index'])->name('auth.show');
 
     Route::post('/suggestion-submit', [SuggestionController::class, 'store'])->name('suggestion.submit');
 
