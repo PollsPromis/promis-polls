@@ -13,7 +13,7 @@ td, th {
 
 /*---------------Table---------------*/
 .content {
-
+    
     &__body {
         position: relative;
         margin: 0 auto;
@@ -28,6 +28,7 @@ td, th {
     &__thead {
 
         & th {
+            position: -webkit-sticky;
             position: sticky;
             top: 0;
             z-index: 2;
@@ -43,6 +44,7 @@ td, th {
     &__tbody {
 
         & tr > :first-child {
+            position: -webkit-sticky;
             position: sticky;
             background: #fff242;
             left: 0;
