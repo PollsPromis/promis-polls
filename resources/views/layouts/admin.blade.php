@@ -1,9 +1,9 @@
 @extends('app')
 
-@section('title', 'Административная Панель')
+@section('title', 'Панель администратора')
 
 @section('content')
-    <main class="wrapper d-flex" style="min-height: 100vh;">
+    <main class="wrapper">
         <aside class="sidebar">
             <!-- Sidebar -->
             <nav class="sidebar__nav">

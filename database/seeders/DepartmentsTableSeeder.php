@@ -9,7 +9,6 @@
     {
         public function run()
         {
-
             DB::table('departments')->insert([
                 'title' => 'Отдел сетевых технологий'
             ]);

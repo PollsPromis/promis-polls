@@ -10,20 +10,21 @@
                 <div class="content__header-block header-block">
                     <h1 class="header-block__title">Предложение по улучшению</h1>
                 </div>
-                <form class="content__main-form main-form" method="post" action="{{ route('suggestion.submit') }}" enctype="multipart/form-data">
+                <form class="content__main-form main-form" method="post" action="{{ route('suggestion.store') }}" enctype="multipart/form-data">
+                    @csrf
                     <div class="main-form__wrapper">
                         <div class="main-form__row row">
                             <div class="row__title">
                                 <h3 class="row__text required">Автор (ФИО)</h3>
                             </div>
-                            <input class="row__input" required type="text">
+                            <input class="row__input" required type="text" name="author">
                         </div>
 
                         <div class="main-form__row row">
                             <div class="row__title">
                                 <h3 class="row__text">Соавтор(-ы) (ФИО)</h3>
                             </div>
-                            <input class="row__input" type="text">
+                            <input class="row__input" type="text" name="collaborator">
                         </div>
 
                         <label class="main-form__row row _form-check" for="toggle-input-fields">
@@ -36,14 +37,14 @@
                                 <div class="row__title">
                                     <h3 class="row__text">Почта</h3>
                                 </div>
-                                <input class="row__input" type="text">
+                                <input class="row__input" type="text" name="email">
                             </div>
 
                             <div class="main-form__row row">
                                 <div class="row__title">
                                     <h3 class="row__text">Телефон</h3>
                                 </div>
-                                <input class="row__input" type="text">
+                                <input class="row__input" type="text" name="phone_number">
                             </div>
                         </div>
 
@@ -51,13 +52,12 @@
                             <div class="row__title">
                                 <h3 class="row__text required">Подразделение</h3>
                             </div>
-                            <select class="row__input" required type="text">
-                                <option value="1">Отдел качества</option>
-                                <option value="2">Отдел продаж</option>
-                                <option value="3">Отдел кадров</option>
-                                <option value="4">Логистический отдел</option>
-                                <option value="5">Отдел закупок</option>
-                                <option value="6">Техническая поддержка</option>
+                            <select class="row__input" required type="text" name="department">
+
+                            @foreach($departments as $department)
+                                <option value="{{ $department->id }}">{{ $department->title }}</option>
+                            @endforeach
+
                             </select>
                         </div>
 
@@ -65,7 +65,7 @@
                             <div class="row__title">
                                 <h3 class="row__text required">Описание проблемы</h3>
                             </div>
-                            <textarea class="row__textarea" required type="text" rows="10"></textarea>
+                            <textarea class="row__textarea" required type="text" rows="10" name="description"></textarea>
                         </div>
 
                         <div class="main-form__row row">
