@@ -6,6 +6,4 @@
     class EconomicIndicator extends Model
     {
         protected $table = 'economic_indicators';
-
-
     }

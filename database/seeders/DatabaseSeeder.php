@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Suggestion;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Factories\SuggestionFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,9 +16,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-        $this->call(DepartmentsTableSeeder::class);
-        $this->call(StatusesTableSeeder::class);
-        $this->call(TypesTableSeeder::class);
+//        $this->call(DepartmentsTableSeeder::class);
+//        $this->call(StatusesTableSeeder::class);
+//        $this->call(TypesTableSeeder::class);
+        Suggestion::factory()->count(5)->create();
 //        User::factory()->create([
 //            'name' => 'Test User',
 //            'email' => 'test@example.com',

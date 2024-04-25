@@ -2,14 +2,14 @@
 
     namespace App\Http\Controllers;
 
-    use Illuminate\Http\Request;
-    use App\Models\Suggestion;
-    use App\Models\SuggestionImageBefore;
-    use App\Models\SuggestionImageAfter;
     use App\Models\Status;
+    use App\Models\Suggestion;
+    use App\Models\SuggestionImageAfter;
+    use App\Models\SuggestionImageBefore;
+    use Illuminate\Http\RedirectResponse;
+    use Illuminate\Http\Request;
     use Illuminate\Support\Facades\DB;
     use Illuminate\Support\Facades\Storage;
-    use Illuminate\Http\RedirectResponse;
 
     class SuggestionController extends Controller
     {
@@ -25,7 +25,7 @@
                     'collaborator'   => 'nullable',
                     'department'     => 'required|exists:departments,id',
                     'email'          => 'nullable|email',
-                    'phone'          => 'nullable',
+                    'phone_number'   => 'nullable',
                     'type'           => 'nullable',
                     'description'    => 'required',
                     'photo_problem'  => 'nullable|image',
@@ -39,7 +39,7 @@
                     'collaborator'       => $validated['collaborator'] ?? '',
                     'email'              => $validated['email'],
                     'depart_id'          => $validated['department'],
-                    'phone_number'       => $validated['phone'],
+                    'phone_number'       => $validated['phone_number'],
                     'status_id'          => 1,
                     'type_id'            => 1,
                     'suggestion_content' => $validated['description'],
@@ -77,6 +77,29 @@
             }
         }
 
+        public function filter(Request $request)
+        {
+            $query = Suggestion::query();
+
+            $filter = $request->input('filter');
+            $search = $request->input('search');
+
+
+            if ($filter) {
+                if($filter === 'date') {
+                    $query->whereDate($filter, 'like', '%' . $search . '%');
+                } else {
+                    $query->where($filter, 'like', '%' . $search . '%');
+                }
+            }
+
+            $suggestions = $query->get();
+
+            return view('layouts.suggestions', compact('suggestions'), [
+                'suggestions' => $suggestions,
+            ]);
+        }
+
         public function index(Request $request)
         {
             // Получение статуса из запроса, если он есть
@@ -89,13 +112,12 @@
                 $query->where('status_id', $statusId);
             }
 
-            $suggestions = $query->paginate(10); // Пример пагинации
-            $statuses = Status::all(); // Получение всех статусов для фильтра
-
+            $suggestions = $query->paginate(10); // Пагинация
+            $statuses = Status::all(); // Получение всех отделов для фильтра
 
             return view('layouts.suggestions', compact('suggestions'), [
                 'suggestions' => $suggestions,
-                'statuses'    => $statuses,
+                'statuses' => $statuses,
             ]);
         }
     }

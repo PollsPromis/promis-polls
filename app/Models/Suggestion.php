@@ -2,10 +2,13 @@
 
     namespace App\Models;
 
+    use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Database\Eloquent\Model;
 
     class Suggestion extends Model
     {
+        use HasFactory;
+
         protected $fillable = [
             'date', 'author', 'collaborator', 'email', 'depart_id', 'type_id',
             'phone_number', 'suggestion_content', 'economic_indic_id', 'sent_for_expertise',
@@ -21,7 +24,6 @@
         {
             return $this->belongsTo('App\Models\Status', 'status_id');
         }
-
 
         public function type()
         {

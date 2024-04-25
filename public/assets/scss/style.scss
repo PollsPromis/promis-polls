@@ -3,7 +3,7 @@
 
 /*---------------General---------------*/
 body {
-    font-family: "YS Text", "Helvetica Neue", "Arial", "Helvetica", sans-serif;
+    font-family: "Manrope",sans-serif;
     color: #000000;
     font-size: 16px;
     font-weight: 500;
@@ -35,7 +35,7 @@ label, .filter__title {
 	}
 
 	@media (max-width: 700px) {
-		padding: 0 25px;
+		padding: 0 30px;
 	}
 }
 ._svg {
@@ -173,7 +173,7 @@ label, .filter__title {
     &__header-block {
         text-align: center;
         width: 100%;
-        margin: 0 0 45px;
+        padding: 0 0 45px;
         font-size: 35px;
     }
 
@@ -191,6 +191,7 @@ label, .filter__title {
     max-width: 700px;
     box-shadow: 0px 1px 4px rgb(179, 179, 179);
     border-radius: 25px;
+    width: 100%;
 
     background-image: url('/assets/images/background-img.png');
     background-attachment: fixed;
@@ -258,6 +259,8 @@ label, .filter__title {
         border: 1px solid #9a9a9a40;
         border-radius: 10px;
         background-color: #ffffff9b;
+        resize: vertical;
+        min-height: 140px;
     }
 
     &__check-input {
@@ -283,23 +286,23 @@ label, .filter__title {
     &__button-load {
         display: block;
         color: #000000;
-        background: #ffffff00;
         border: 1px solid #9a9a9a40;
         margin: 0px 20px 0px 0px;
+        background-color: rgba(255, 255, 255, 0.6078431373);
 
         &:hover {
             border: 1px solid #83838340;
-            background: #e1e1e17e;
+            background-color: #e1e1e17e;
         }
     }
 
     &__button-submit {
         color: #FFFFFF;
-        background: #5282ff;
+        background-color: #3a72ff;
         margin: 50px auto 0;
         
         &:hover {
-            background: #2f6aff;
+            background-color: #0b50ff;
         }
     }
 
@@ -310,19 +313,19 @@ label, .filter__title {
 
     &__file-item {
         padding: 12px;
-        width: fit-content;
         border: 1px solid #9a9a9a40;
         border-radius: 10px;
         margin: 0px 10px 10px 0px;
+        max-width: fit-content;
     }
 
     &__file-name {
         flex-grow: 1;
-        white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         margin-right: 5px;
         padding: 0px 5px 0px 0px;
+        word-break: break-all;
     }
 
     &__delete-file {

@@ -9,7 +9,7 @@
             <nav class="main-menu__menu menu">
                 <ul class="menu__list">
                     <li class="menu__item">
-                        <a href="{{ route('suggestions.show') }}">
+                        <a href="{{ route('suggestion.show') }}">
                             <div class="menu__icon icon">
                                 <div class="icon__icon-svg search-svg _svg">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
