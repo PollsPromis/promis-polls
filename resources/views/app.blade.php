@@ -8,6 +8,7 @@
     </style>
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/auth.css') }}">
 </head>
 <body>
     <div class="wrapper">
