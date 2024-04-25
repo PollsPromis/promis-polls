@@ -25,15 +25,13 @@
                 if ($user && $request->password === $user->password) {
                     Auth::login($user);
                    return redirect()->route('admin.show');
-                    //return redirect()->route('app');
                 } else {
                     return redirect()->route('auth.show')->with('error', 'Неправильный email или пароль');
                 }
             }
             catch (\Exception $e) {
                 DB::rollback();
-                dd($e->getMessage());
-                //return redirect()->route('app');
+                return redirect()->route('auth.show')->with('error', $e->getMessage());
             }
         }
     }
