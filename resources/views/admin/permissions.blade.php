@@ -2,7 +2,7 @@
 <div class="form-group d-flex flex-wrap mb-3">
     @php
         $userPermissions = [];
-        if (isset($user)) {
+        if (isset($role)) {
             $userPermissions = old('perms') ?? $role->permissions->keyBy('id')->keys()->toArray();
         }
     @endphp

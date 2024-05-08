@@ -21,7 +21,6 @@ class UserTableSeeder extends Seeder
             'email' => 'root@test.ru',
             'login' => '1',
             'password' => Hash::make('root'),
-            'role_id' => 1
         ]);
 
         $user = User::whereEmail('root@test.ru')->first();

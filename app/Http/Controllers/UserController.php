@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 
 use App\Enums\Permissions;
 use App\Enums\Roles;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
@@ -67,15 +69,8 @@ class UserController extends Controller implements HasMiddleware
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $request->validate([
-            'first_name' => ['required','max:255'],
-            'second_name' => ['required','max:255'],
-            'email' => ['required', 'email', 'unique:users'],
-            'password' => ['required', 'confirmed', 'min:6'],
-        ]);
-
         DB::table('users')->insert([
             'first_name'  => $request->string('first_name')->trim(),
             'second_name' => $request->string('second_name')->trim(),
@@ -114,14 +109,8 @@ class UserController extends Controller implements HasMiddleware
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, int $id)
+    public function update(UpdateUserRequest $request, int $id)
     {
-        $request->validate([
-            'first_name' => ['required','max:255'],
-            'email' => ['required', 'email', 'unique:users'],
-            'roles' => ['required', 'exists:roles,id'],
-        ]);
-
         $user = User::find($id);
 
         if ($request->change_password) {
