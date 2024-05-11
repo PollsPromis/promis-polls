@@ -10,7 +10,7 @@
         public function run()
         {
             DB::table('statuses')->insert([
-                'title' => 'На рассмотрении'
+                'title' => 'На рассмотрении',
             ]);
         }
     }

@@ -99,9 +99,11 @@ td, th {
   border: 1px solid #E5E5E5;
   color: #0070C0;
   background-color: #FFFFFF;
-  width: 30px;
+  width: fit-content;
+  min-width: 30px;
   height: 30px;
   border-radius: 10%;
+  padding: 5px;
   transition: all 0.2s ease;
 }
 ._button-svg:hover {
@@ -142,14 +144,14 @@ td, th {
   margin: 0px 10px 0px 0px;
 }
 .search-block__row {
-  margin: 0px 6px 0px 0px;
+  margin: 0px 5px 0px 0px;
   height: 30px;
-  width: 150px;
   min-width: 120px;
   border: 1px solid rgba(154, 154, 154, 0.2509803922);
   font-size: 14px;
 }
 .search-block__button {
+    margin: 0px 5px 0px 0px;
   cursor: pointer;
   display: flex;
   flex-direction: row;
@@ -550,6 +552,11 @@ label, .filter__title {
   margin-right: 5px;
   padding: 0px 5px 0px 0px;
   word-break: break-all;
+    font-size: 14px;
+    color: #000000;
+}
+.row__file-name:hover {
+    color: #636363;
 }
 .row__delete-file {
   cursor: pointer;
@@ -562,7 +569,6 @@ label, .filter__title {
 }
 
 .input-date {
-  color: rgba(0, 0, 0, 0.3411764706);
   width: -moz-fit-content;
   width: fit-content;
   font-size: 15px;

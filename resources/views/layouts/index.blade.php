@@ -10,7 +10,7 @@
                 <div class="content__header-block header-block">
                     <h1 class="header-block__title">Предложение по улучшению</h1>
                 </div>
-                <form class="content__main-form main-form" method="post" action="{{ route('suggestion.store') }}" enctype="multipart/form-data">
+                <form class="content__main-form main-form" method="post" action="{{ route('suggestion.store') }}" onsubmit="clearStorage()" enctype="multipart/form-data">
                     @csrf
                     <div class="main-form__wrapper">
                         <div class="main-form__row row">
@@ -73,10 +73,11 @@
                                 <h3 class="row__text">Прикрепите фото проблемы (желательно, но не обязательно)</h3>
                             </div>
                             <div class="row__action">
-                                <button class="row__button-load _button file-chooser" type="button">Загрузить</button>
+                                <button class="row__button-load _button file-chooser-problem" type="button">Загрузить</button>
                                 <span class="row__span">До 5 файлов, допустимый размер одного файла — 20 МБ.</span>
                             </div>
-                            <div class="row__file-list"></div>
+                            <div class="input-list-problem"></div>
+                            <div class="row__file-list filename-list-problem"></div>
                         </div>
 
                         <div class="main-form__row row">
@@ -84,17 +85,18 @@
                                 <h3 class="row__text">Прикрепите фото решенной проблемы (желательно, но не обязательно)</h3>
                             </div>
                             <div class="row__action">
-                                <button class="row__button-load _button file-chooser" type="button">Загрузить</button>
+                                <button class="row__button-load _button file-chooser-solution" type="button">Загрузить</button>
                                 <span class="row__span">До 5 файлов, допустимый размер одного файла — 20 МБ.</span>
                             </div>
-                            <div class="row__file-list"></div>
+                            <div class="input-list-solution"></div>
+                            <div class="row__file-list filename-list-solution"></div>
                         </div>
 
                         <div class="main-form__row row">
                             <div class="row__title">
                                 <h3 class="row__text">Дата</h3>
                             </div>
-                            <input type="date" class="row__input input-date" name="date">
+                            <input type="date" class="row__input input-date" name="date" value="{{ now()->format('Y-m-d') }}">
                         </div>
 
                         <div class="main-form__row row">

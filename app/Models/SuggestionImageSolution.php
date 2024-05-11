@@ -3,7 +3,8 @@
 
     use Illuminate\Database\Eloquent\Model;
 
-    class SuggestionImageBefore extends Model
+    class SuggestionImageSolution extends Model
     {
+        protected $table = 'sugg_images_solution';
         protected $fillable = ['file_path', 'sugg_id'];
     }
