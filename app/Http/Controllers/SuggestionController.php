@@ -72,8 +72,7 @@
                 return redirect()->route('app');
             } catch (\Exception $e) {
                 DB::rollback();
-                dd($e->getMessage());
-                //return redirect()->route('app');
+                return redirect()->route('app');
             }
         }
 

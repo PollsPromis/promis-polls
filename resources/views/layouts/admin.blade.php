@@ -9,8 +9,13 @@
             <nav class="sidebar__nav">
                 <ul class="menu__list__admin">
                     <li class="menu__item__admin">
-                        <a href="#" class="menu__link__admin active">
-                            Новые Пользователи
+                        <a href="{{route('users.index')}}" class="menu__link__admin active">
+                            Пользователи
+                        </a>
+                    </li>
+                    <li class="menu__item__admin">
+                        <a href="{{route('roles.index')}}" class="menu__link__admin active">
+                            Роли
                         </a>
                     </li>
                     <li class="menu__item__admin">
