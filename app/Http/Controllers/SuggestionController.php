@@ -69,7 +69,6 @@ class SuggestionController extends Controller
                     ]);
                     $imageSolution->save();
                 }
-
             }
 
             // Если все в порядке, фиксируем транзакцию

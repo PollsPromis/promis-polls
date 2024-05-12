@@ -1,16 +1,35 @@
 <?php
+declare(strict_types=1);
 
-    namespace Database\Seeders;
+namespace Database\Seeders;
 
-    use Illuminate\Database\Seeder;
-    use Illuminate\Support\Facades\DB;
+use App\Enums\Permissions;
+use App\Enums\Roles;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
-    class RoleTableSeeder extends Seeder
+class RoleTableSeeder extends Seeder
+{
+    public function run(): void
     {
-        public function run()
-        {
+        foreach (Roles::cases() as $role) {
             DB::table('roles')->insert([
-                'title' => 'Супер админ'
+                'name' => $role->getValue(),
+                'title' => $role->getName(),
+                'guard_name' => 'web',
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        }
+
+        foreach (Permissions::cases() as $role) {
+            DB::table('permissions')->insert([
+                'name' => $role->getValue(),
+                'title' => $role->getName(),
+                'guard_name' => 'web',
+                'created_at' => now(),
+                'updated_at' => now()
             ]);
         }
     }
+}

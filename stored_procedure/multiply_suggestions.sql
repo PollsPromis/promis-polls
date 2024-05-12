@@ -1,3 +1,3 @@
-call Multiply(50);
+call Multiply(100);
 
 truncate suggestions cascade;

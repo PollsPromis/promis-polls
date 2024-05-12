@@ -1,11 +1,12 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\SuggestionController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', [IndexController::class, 'index'])->name('app');
 
@@ -17,8 +18,12 @@ Route::group(['prefix' => 'suggestions'], function () {
     Route::post('/auth-show', [AuthController::class, 'auth'])->name('auth.admin');
     Route::get('/auth-show', [AuthController::class, 'index'])->name('auth.show');
 
-Route::group(['prefix' => 'admin'], function () {
-    Route::get('/', [AdminController::class, 'index'])->name('admin.show');
+Route::middleware('auth')->group(function () {
+    Route::prefix('admin')->group(function () {
+        Route::get('/', [AdminController::class, 'index'])->name('admin.show');
+        Route::resource('users', Controllers\UserController::class);
+        Route::resource('roles', Controllers\RoleController::class);
+    });
 });
 
 Route::middleware([
