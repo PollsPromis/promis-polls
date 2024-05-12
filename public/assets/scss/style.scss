@@ -67,7 +67,7 @@ label, .filter__title {
     border-bottom: 1px solid rgba(198, 189, 189, 0.393);
 
     &__main-menu {
-        
+
     }
 }
 .main-menu {
@@ -89,7 +89,7 @@ label, .filter__title {
     }
 }
 .logo {
-    
+
     &__link {
 
     }
@@ -107,7 +107,7 @@ label, .filter__title {
     }
 }
 .menu {
-    
+
     &__list {
         display: flex;
         align-items: center;
@@ -133,7 +133,7 @@ label, .filter__title {
 }
 .icon {
 
-    
+
 }
 .search-svg {
     padding: 1px 0px 0px 0px;
@@ -264,7 +264,7 @@ label, .filter__title {
     }
 
     &__check-input {
-        
+
     }
 
     &__check-span {
@@ -300,7 +300,7 @@ label, .filter__title {
         color: #FFFFFF;
         background-color: #3a72ff;
         margin: 50px auto 0;
-        
+
         &:hover {
             background-color: #0b50ff;
         }
@@ -326,6 +326,12 @@ label, .filter__title {
         margin-right: 5px;
         padding: 0px 5px 0px 0px;
         word-break: break-all;
+        font-size: 14px;
+        color: #000000;
+
+        &:hover {
+            color: #636363;
+        }
     }
 
     &__delete-file {
@@ -342,7 +348,6 @@ label, .filter__title {
 }
 
 .input-date {
-    color: #00000057;
     width: fit-content;
     font-size: 15px;
 }

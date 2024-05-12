@@ -21,6 +21,7 @@ td, th {
 	width: 30px;
 	height: 30px;
 	border-radius: 10%;
+    padding: 5px;
 	transition: all 0.2s ease;
 
 	&:hover {
@@ -48,7 +49,7 @@ td, th {
     &__search-block {
 
     }
-    
+
     &__main-table {
         position: relative;
         overflow: auto;
@@ -63,7 +64,7 @@ td, th {
     }
 
     &__background {
-       
+
     }
 
     &__container {
@@ -86,7 +87,6 @@ td, th {
     &__row {
         margin: 0px 6px 0px 0px;
         height: 30px;
-        width: 150px;
         min-width: 120px;
         border: 1px solid #9a9a9a40;
         font-size: 14px;
@@ -97,7 +97,7 @@ td, th {
         display: flex;
         flex-direction: row;
         stroke: #797979;
-        
+
         & path{
             stroke: #797979;
             transition: all 0.2s ease;
@@ -156,7 +156,7 @@ td, th {
         }
 
         @media (max-width: 768px) {
-            
+
             & th {
                 min-width: 100px;
             }
@@ -177,7 +177,7 @@ td, th {
         }
 
         & td {
-            
+
         }
     }
 }
@@ -197,7 +197,7 @@ td, th {
 		}
 
 		&__link {
-            
+
             &.active {
                 color: #FFFFFF;
                 background-color: #0070C0;

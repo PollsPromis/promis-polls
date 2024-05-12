@@ -14,7 +14,6 @@ Route::group(['prefix' => 'suggestions'], function () {
     Route::get('/', [SuggestionController::class, 'index'])->name('suggestion.show');
     Route::post('/', [SuggestionController::class, 'store'])->name('suggestion.store');
     Route::get('/filter', [SuggestionController::class, 'filter'])->name('suggestion.filter');
-
 });
     Route::post('/auth-show', [AuthController::class, 'auth'])->name('auth.admin');
     Route::get('/auth-show', [AuthController::class, 'index'])->name('auth.show');

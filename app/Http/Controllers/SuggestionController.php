@@ -1,122 +1,137 @@
 <?php
 
-    namespace App\Http\Controllers;
+namespace App\Http\Controllers;
 
-    use App\Models\Status;
-    use App\Models\Suggestion;
-    use App\Models\SuggestionImageAfter;
-    use App\Models\SuggestionImageBefore;
-    use Illuminate\Http\RedirectResponse;
-    use Illuminate\Http\Request;
-    use Illuminate\Support\Facades\DB;
-    use Illuminate\Support\Facades\Storage;
+use App\Http\Filters\SuggestionsFilter;
+use App\Models\Department;
+use App\Models\Status;
+use App\Models\Suggestion;
+use App\Models\SuggestionImageProblem;
+use App\Models\SuggestionImageSolution;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
-    class SuggestionController extends Controller
+class SuggestionController extends Controller
+{
+    public function store(Request $request): RedirectResponse
     {
-        public function store(Request $request): RedirectResponse
-        {
-            // Старт транзакции
-            DB::beginTransaction();
-            try {
-                // Валидация данных запроса
-                $validated = $request->validate([
-                    'author'         => 'required',
-                    'date'           => 'required|date',
-                    'collaborator'   => 'nullable',
-                    'department'     => 'required|exists:departments,id',
-                    'email'          => 'nullable|email',
-                    'phone_number'   => 'nullable',
-                    'type'           => 'nullable',
-                    'description'    => 'required',
-                    'photo_problem'  => 'nullable|image',
-                    'photo_solution' => 'nullable|image',
-                ]);
-
-                // Создание новой записи предложения
-                $suggestion = new Suggestion([
-                    'author'             => $validated['author'],
-                    'date'               => $validated['date'],
-                    'collaborator'       => $validated['collaborator'] ?? '',
-                    'email'              => $validated['email'],
-                    'depart_id'          => $validated['department'],
-                    'phone_number'       => $validated['phone_number'],
-                    'status_id'          => 1,
-                    'type_id'            => 1,
-                    'suggestion_content' => $validated['description'],
-                ]);
-                $suggestion->save();
-
-                // Сохранение фотографий, если они загружены
-                if ($request->hasFile('photo_problem')) {
-                    $path = $request->file('photo_problem')->store('public/images');
-                    $imageBefore = new SuggestionImageBefore([
-                        'file_path' => Storage::url($path),
-                        'sugg_id'   => $suggestion->sugg_id
-                    ]);
-                    $imageBefore->save();
-                }
-
-                if ($request->hasFile('photo_solution')) {
-                    $path = $request->file('photo_solution')->store('public/images');
-                    $imageAfter = new SuggestionImageAfter([
-                        'file_path' => Storage::url($path),
-                        'sugg_id'   => $suggestion->sugg_id
-                    ]);
-                    $imageAfter->save();
-                }
-
-                // Если все в порядке, фиксируем транзакцию
-                DB::commit();
-
-                // Перенаправление с сообщением об успехе
-                return redirect()->route('app');
-            } catch (\Exception $e) {
-                DB::rollback();
-                return redirect()->route('app');
-            }
-        }
-
-        public function filter(Request $request)
-        {
-            $query = Suggestion::query();
-
-            $filter = $request->input('filter');
-            $search = $request->input('search');
-
-
-            if ($filter) {
-                if($filter === 'date') {
-                    $query->whereDate($filter, 'like', '%' . $search . '%');
-                } else {
-                    $query->where($filter, 'like', '%' . $search . '%');
-                }
-            }
-
-            $suggestions = $query->get();
-
-            return view('layouts.suggestions', compact('suggestions'), [
-                'suggestions' => $suggestions,
+        // Старт транзакции
+        DB::beginTransaction();
+        try {
+            // Валидация данных запроса
+            $validated = $request->validate([
+                'author'         => 'required',
+                'date'           => 'required|date',
+                'collaborator'   => 'nullable',
+                'department'     => 'required|exists:departments,id',
+                'email'          => 'nullable|email',
+                'phone_number'   => 'nullable',
+                'type'           => 'nullable',
+                'description'    => 'required',
+                'images_problem'  => 'nullable|array',
+                'images_solution' => 'nullable|array',
             ]);
-        }
 
-        public function index(Request $request)
-        {
-            // Получение статуса из запроса, если он есть
-            $statusId = $request->get('status');
+            // Создание новой записи предложения
+            $suggestion = new Suggestion([
+                'author'             => $validated['author'],
+                'date'               => $validated['date'],
+                'collaborator'       => $validated['collaborator'] ?? '',
+                'email'              => $validated['email'],
+                'depart_id'          => $validated['department'],
+                'phone_number'       => $validated['phone_number'],
+                'status_id'          => 1,
+                'type_id'            => 1,
+                'suggestion_content' => $validated['description'],
+            ]);
+            $suggestion->save();
 
-            // Построение запроса с учетом фильтра, если он применяется
-            $query = Suggestion::with('department', 'status');
-
-            if ($statusId) {
-                $query->where('status_id', $statusId);
+            // Сохранение фотографий, если они загружены
+            if(isset($validated['images_problem'])){
+                foreach ($validated['images_problem'] as $problemImage) {
+                    $filePath = Storage::disk('public')->put('/images', $problemImage);
+                    $imageProblem = new SuggestionImageProblem([
+                        'file_path' => $filePath,
+                        'sugg_id'   => $suggestion->id
+                    ]);
+                    $imageProblem->save();
+                }
             }
 
-            $suggestions = $query->paginate(10); // Пагинация
-            $statuses = Status::all(); // Получение всех отделов для фильтра
+            if(isset($validated['images_solution'])){
+                foreach ($validated['images_solution'] as $solutionImage) {
+                    $filePath = Storage::disk('public')->put('/images', $solutionImage);
+                    $imageSolution = new SuggestionImageSolution([
+                        'file_path' => $filePath,
+                        'sugg_id'   => $suggestion->id
+                    ]);
+                    $imageSolution->save();
+                }
+            }
 
-            return view('layouts.suggestions', compact('suggestions'), [
-                'suggestions' => $suggestions,
-                'statuses' => $statuses,
-            ]);
+            // Если все в порядке, фиксируем транзакцию
+            DB::commit();
+
+            // Перенаправление с сообщением об успехе
+            return redirect()->route('app');
+        } catch (\Exception $e) {
+            DB::rollback();
+            dd($e->getMessage());
+            //return redirect()->route('app');
         }
     }
+
+    public function filter(Request $request)
+    {
+        $filters = SuggestionsFilter::getFilters();
+
+        $query = Suggestion::query();
+        $queryStatuses = Status::query();
+        $queryDepartments = Department::query();
+
+        $field = $request->input('field');
+        $search = $request->input('search');
+
+        if (isset($field) && isset($search)) {
+            if($field === 'status') {
+                $foreignId = SuggestionsFilter::getForeignIdByQuery($queryStatuses, $search);
+                $query->whereIn('status_id', $foreignId);
+            }
+            else if($field === 'department') {
+                $foreignId = SuggestionsFilter::getForeignIdByQuery($queryDepartments, $search);
+                $query->whereIn('depart_id', $foreignId);
+            }
+            else {
+                $query->where($field, 'ilike', '%' . $search . '%');
+            }
+
+            $suggestions = $query->paginate(10);
+        } else {
+            //ошибка
+            $suggestions = [];
+        }
+
+        return view('layouts.suggestions', compact('suggestions', 'filters'));
+    }
+
+    public function index(Request $request)
+    {
+        // Получение статуса из запроса, если он есть
+        $statusId = $request->get('status');
+
+        // Построение запроса с учетом фильтра, если он применяется
+        $query = Suggestion::with('department', 'status');
+
+        if ($statusId) {
+            $query->where('status_id', $statusId);
+        }
+
+        $suggestions = $query->paginate(10); // Пагинация
+        $statuses = Status::all();
+        $filters = SuggestionsFilter::getFilters();
+
+        return view('layouts.suggestions', compact('suggestions', 'filters',  'statuses'));
+    }
+}
